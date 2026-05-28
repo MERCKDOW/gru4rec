@@ -146,20 +146,28 @@ class GRU4RecModel(nn.Module):
         init_parameter_matrix(self.Wy.weight)
         nn.init.zeros_(self.By.weight)
 
-    #this is a bug, replace with 
-    #def _init_numpy_weights(self, shape):
-    #    sigma = np.sqrt(6.0 / (shape[0] + shape[1]))
-    #    m = np.random.rand(*shape) * 2.0 * sigma - sigma
-    #    return m.astype(np.float32).astype(np.float32)
-    # 
-    #  
-    # with numpy 2.0, the above code can produce float64 arrays,
-    # which causes errors when setting weights in PyTorch. 
-    # The following code ensures that the generated numpy arrays are of type float32.    
+    #this is a bug, introduced by numpy 2.0, which produces float64 arrays by default
+    #multiplying by a float64 promotes the array to float64
+    
     def _init_numpy_weights(self, shape):
         sigma = np.sqrt(6.0 / (shape[0] + shape[1]))
         m = np.random.rand(*shape).astype('float32') * 2 * sigma - sigma
         return m
+    
+
+    # 
+    #  
+    # with numpy 2.0, the above code can produce float64 arrays,
+    # which causes errors when setting weights in PyTorch. 
+    # The following code ensures that the generated numpy arrays are of type float32.
+    #
+    #
+    #def _init_numpy_weights(self, shape):
+    #    sigma = np.sqrt(6.0 / (shape[0] + shape[1]))
+    #    m = np.random.rand(*shape) * 2.0 * sigma - sigma
+    #    return m.astype(np.float32).astype(np.float32)
+    #
+    #
     @torch.no_grad()
     def _reset_weights_to_compatibility_mode(self):
         np.random.seed(42)
