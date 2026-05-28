@@ -1,0 +1,30 @@
+{ 
+  "model_args": {
+    "device" : "cuda:0",  
+    "layers":"100",
+    "batch_size":"32", 
+    "dropout_p_embed":"0.01", 
+    "dropout_p_hidden":"0.005",  
+    "learning_rate":"0.07",  
+    "momentum":"0.5", 
+    "n_sample":"2048",
+    "sample_alpha":"0.0", 
+    "bpreg":"0.25",  
+    "logq":"1.0",
+    "loss":"cross-entropy",  
+    "constrained_embedding":"True",
+    "elu_param":"0.0",
+    "n_epochs":"10"  
+  },
+  "file_args": {
+    "item_key":"ItemId",
+    "session_key":"SessionId", 
+    "time_key":"Time",
+    "base_path":"/content/",
+    "train_data_path":"/content/",
+    "top_n":31,
+    "mtype":"pt_10_32_ce_L100"
+  }
+}
+ 
+         
