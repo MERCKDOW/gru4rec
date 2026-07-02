@@ -1,13 +1,9 @@
--- creates sessions lookup table for UA and GA4
--- generates red training data 
--- possible encodding missmatches in the ga and ua tables 
---
--- ua tables have been loaded processed and stored to be reloaded, 
+ 
 --
 -- https://cloud.google.com/bigquery/docs/reference/standard-sql/collation-concepts
 -- https://support.google.com/analytics/answer/9358801?hl=en
 -- 
--- if anyone can do this anyother way as of october 27th 2024 please share
+
 WITH red_products_ga AS (
     SELECT
     CONCAT('GA', REGEXP_REPLACE(CAST(ga_session_id AS STRING) , r'[-.]', '')) AS visit_id,
