@@ -76,7 +76,7 @@ def preprocess_training_data_tmstp(infile, outfile):
 
 
     item_supports = data.groupby('ItemId').size()
-    data = data[np.isin(data.ItemId, item_supports[item_supports>=5].index)]
+    data = data[np.isin(data.ItemId, item_supports[item_supports>=4].index)]
     del item_supports
     gc.collect()
 
